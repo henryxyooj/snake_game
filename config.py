@@ -12,9 +12,9 @@ TITLE_FONT_SIZE = 60
 SCORE_FONT_SIZE = 40
 
 # file paths
-FOOD_IMAGE_PATH = "../graphics/food.png"
-EAT_SOUND_PATH = "../sounds/Sounds_eat.mp3"
-WALL_HIT_SOUND_PATH = "../sounds/Sounds_wall.mp3"
+FOOD_IMAGE_PATH = "graphics/food.png"
+EAT_SOUND_PATH = "sounds/Sounds_eat.mp3"
+WALL_HIT_SOUND_PATH = "sounds/Sounds_wall.mp3"
 
 # game settings
 SNAKE_UPDATE_INTERVAL = 200  # milliseconds
