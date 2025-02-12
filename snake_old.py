@@ -14,6 +14,7 @@ number_of_cells = 25
 
 OFFSET = 75
 
+
 class Food:
     def __init__(self, snake_body):
         # self.position = Vector2(5, 6) # creates an object to hold the position of the food object Vector2(x-coord, y-coord)
@@ -27,7 +28,8 @@ class Food:
     def draw(self):
         # Rect has parameters Rect(x pos, y pos, width, height)
         # draw.rect has parameters pygame.draw.rect(surface, color, rect)
-        food_rect = pygame.Rect(OFFSET + self.position.x * cell_size, OFFSET + self.position.y * cell_size, cell_size, cell_size)
+        food_rect = pygame.Rect(OFFSET + self.position.x * cell_size, OFFSET + self.position.y * cell_size, cell_size,
+                                cell_size)
 
         # blit requires 2 arguments (surface to draw, rect object that defines the position and size of the image on the screen)
         # pygame.draw.rect(screen, DARK_GREEN, food_rect)
@@ -40,9 +42,10 @@ class Food:
             position = self.generate_random_cell()
         return position
 
+
 class Snake:
     def __init__(self):
-        self.body = [Vector2(6, 9), Vector2(5,9), Vector2(4,9)]
+        self.body = [Vector2(6, 9), Vector2(5, 9), Vector2(4, 9)]
         self.direction = Vector2(1, 0)
         self.add_segment = False
         self.eat_sound = pygame.mixer.Sound("path to sound")
@@ -51,7 +54,8 @@ class Snake:
     def draw(self):
         for segment in self.body:
             segment_rect = (OFFSET + segment.x * cell_size, OFFSET + segment.y * cell_size, cell_size, cell_size)
-            pygame.draw.rect(screen, DARK_GREEN, segment_rect, 0, 7) # 0 is to fill rectangle with color, 7 is border radius of rectangle
+            pygame.draw.rect(screen, DARK_GREEN, segment_rect, 0,
+                             7)  # 0 is to fill rectangle with color, 7 is border radius of rectangle
 
     def update(self):
         self.body.insert(0, self.body[0] + self.direction)
@@ -59,11 +63,13 @@ class Snake:
             self.add_segment = False
         else:
             # removing last segment of the body
-            self.body = self.body[:-1]  # selecting all elements form the beginning of the list up to second last element
+            self.body = self.body[
+                        :-1]  # selecting all elements form the beginning of the list up to second last element
 
     def reset(self):
         self.body = [Vector2(6, 9), Vector2(5, 9), Vector2(4, 9)]
         self.direction = Vector2(1, 0)
+
 
 class Game:
     def __init__(self):
@@ -91,13 +97,13 @@ class Game:
             self.snake.eat_sound.play()
 
     def check_collision_with_edges(self):
-        if self.snake.body[0].x == number_of_cells or self.snake.body[0].x == -1: # -1 is leftmost of the grid
+        if self.snake.body[0].x == number_of_cells or self.snake.body[0].x == -1:  # -1 is leftmost of the grid
             self.game_over()
         if self.snake.body[0].y == number_of_cells or self.snake.body[0].y == -1:
             self.game_over()
 
     def check_collision_with_tail(self):
-        headless_body = self.snake.body[1:] # these are parts of the body that aren't the head
+        headless_body = self.snake.body[1:]  # these are parts of the body that aren't the head
         if self.snake.body[0] in headless_body:
             self.game_over()
 
@@ -108,11 +114,12 @@ class Game:
         self.score = 0
         self.snake.wall_hit_sound.play()
 
+
 # this creates the game window
 # top left starts at (0, 0)
 # x coordinate increases as you move right
 # y coordinate increases as you move down
-screen = pygame.display.set_mode((2*OFFSET + cell_size*number_of_cells, 2*OFFSET + cell_size*number_of_cells))
+screen = pygame.display.set_mode((2 * OFFSET + cell_size * number_of_cells, 2 * OFFSET + cell_size * number_of_cells))
 
 pygame.display.set_caption("Retro Snake")
 
@@ -123,8 +130,9 @@ game = Game()
 food_surface = pygame.image.load("graphics/food.png")
 
 # create an event that will be triggered every time the snake's position needs to be updated
-SNAKE_UPDATE = pygame.USEREVENT # USEREVENT Is a special event type that can be used to create custom events
-pygame.time.set_timer(SNAKE_UPDATE, 200) # (event that needs to be triggered, interval in milliseconds) ensures snakes move every milliseconds and not 60 fps
+SNAKE_UPDATE = pygame.USEREVENT  # USEREVENT Is a special event type that can be used to create custom events
+pygame.time.set_timer(SNAKE_UPDATE,
+                      200)  # (event that needs to be triggered, interval in milliseconds) ensures snakes move every milliseconds and not 60 fps
 
 # runs continuously until we close the game
 # perform three key steps: checking for events, updating position, drawing the game objects
@@ -156,15 +164,13 @@ while True:
     # drawing
     # this just throws up a black screen, there's nothing to draw yet
     screen.fill(GREEN)
-    pygame.draw.rect(screen, DARK_GREEN, (OFFSET-5, OFFSET-5, cell_size*number_of_cells+10, cell_size*number_of_cells+10), 5)
+    pygame.draw.rect(screen, DARK_GREEN,
+                     (OFFSET - 5, OFFSET - 5, cell_size * number_of_cells + 10, cell_size * number_of_cells + 10), 5)
     game.draw()
     title_surface = title_font.render("Retro Snake", True, DARK_GREEN)
     score_surface = score_font.render(str(game.score), True, DARK_GREEN)
-    screen.blit(title_surface, (OFFSET-5, 20))
-    screen.blit(score_surface, (OFFSET-5, OFFSET + cell_size*number_of_cells + 10))
-
+    screen.blit(title_surface, (OFFSET - 5, 20))
+    screen.blit(score_surface, (OFFSET - 5, OFFSET + cell_size * number_of_cells + 10))
 
     pygame.display.update()
     clock.tick(60)  # runs 60 times every second
-
-
