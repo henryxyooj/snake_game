@@ -2,7 +2,7 @@
 ___
 
 ## Introduction
-This is just your run-of-the-mill Snake game project done in Python.  This was an introduction for me to using Python and exploring Pygame with help from a YouTube video.  
+This is just your run-of-the-mill Snake game project done in Python.  This was an introduction for me to using Python, exploring Pygame, and improving my object oriented programming skills with help from a YouTube video.  
 
 
 Thanks "Programming with Nick"!
